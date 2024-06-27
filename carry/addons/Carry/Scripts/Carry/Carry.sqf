@@ -1,11 +1,13 @@
-
 private _anim=((animationState player)splitString"_")select 0;
 if(_anim=="hubsittingchairb")exitWith{player remoteExec["BIS_fnc_ambientAnim__terminate"]};
 
 if!(carryEnabled)exitWith{};
 if(carryAntiSpam)exitWith{};
 
-player forceWalk FALSE;
+if (isNil player getVariable ["zade_boc_chestpack",nil]) then {
+	player forceWalk FALSE;
+};
+
 carryHeight=1;
 // Drop
 private _object=objNull;
@@ -45,9 +47,10 @@ if!(isNull carryCarry)exitWith{
 		
 		detach _object; //Let go
 		carryCarry=objNull;
-		player forceWalk FALSE;
+		if (isNil player getVariable ["zade_boc_chestpack",nil]) then {
+			player forceWalk FALSE;
+		};
 
-		
 		if!(carryChat)exitWith{};
 		systemChat format["%1 placed on ground",_displayName];
 	}else{
@@ -59,8 +62,9 @@ if!(isNull carryCarry)exitWith{
 		
 		detach _object; //Let go
 		carryCarry=objNull;
-		player forceWalk FALSE;
-
+		if (isNil player getVariable ["zade_boc_chestpack",nil]) then {
+			player forceWalk FALSE;
+		};
 		//if(_out select 2)then{_object setPosATL[_pos select 0,_pos select 1,0]}else{_object setPosASL _pos};
 		private _dir=[_object,_object2]call Carry_fnc_GetDir;
 		_object setPosASL _pos;
