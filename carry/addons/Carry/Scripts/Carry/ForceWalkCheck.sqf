@@ -6,6 +6,7 @@ while{TRUE}do{
 	if!(carryCarry in(attachedObjects player))exitWith{_down=TRUE};
 	if((lifeState player)=="INCAPACITATED")exitWith{_down=TRUE};
 	if!(alive player)exitWith{};
+	if!(isNil {player getVariable ["zade_boc_chestpack",nil]})exitWith{player forceWalk TRUE};
 };
 if(_down)then{
 	if(isNull carryCarry)exitWith{};
@@ -13,4 +14,4 @@ if(_down)then{
 	detach carryCarry;
 	carryCarry enableSimulationGlobal TRUE;
 };
-player forceWalk FALSE;
+if(isNil {player getVariable ["zade_boc_chestpack",nil]})exitWith{player forceWalk FALSE};

@@ -4,8 +4,9 @@ if(_anim=="hubsittingchairb")exitWith{player remoteExec["BIS_fnc_ambientAnim__te
 if!(carryEnabled)exitWith{};
 if(carryAntiSpam)exitWith{};
 
-if (isNil player getVariable ["zade_boc_chestpack",nil]) then {
-	player forceWalk FALSE;
+if (isNil {player getVariable ["zade_boc_chestpack",nil]})then {
+	//systemChat "Backpack not detected, you can run...0";
+	player forceWalk FALSE
 };
 
 carryHeight=1;
@@ -47,9 +48,12 @@ if!(isNull carryCarry)exitWith{
 		
 		detach _object; //Let go
 		carryCarry=objNull;
-		if (isNil player getVariable ["zade_boc_chestpack",nil]) then {
-			player forceWalk FALSE;
+
+		if (isNil {player getVariable ["zade_boc_chestpack",nil]})then {
+			//systemChat "Backpack not detected, you can run...1";
+			player forceWalk FALSE
 		};
+
 
 		if!(carryChat)exitWith{};
 		systemChat format["%1 placed on ground",_displayName];
@@ -62,9 +66,12 @@ if!(isNull carryCarry)exitWith{
 		
 		detach _object; //Let go
 		carryCarry=objNull;
-		if (isNil player getVariable ["zade_boc_chestpack",nil]) then {
-			player forceWalk FALSE;
+
+		if (isNil {player getVariable ["zade_boc_chestpack",nil]})then {
+			//systemChat "Backpack not detected, you can run...2";
+			player forceWalk FALSE
 		};
+
 		//if(_out select 2)then{_object setPosATL[_pos select 0,_pos select 1,0]}else{_object setPosASL _pos};
 		private _dir=[_object,_object2]call Carry_fnc_GetDir;
 		_object setPosASL _pos;
@@ -105,6 +112,11 @@ if (_disabled)exitWith{
 if (_object isKindOf "Man")exitWith{
 	if!(carryChat)exitWith{};
 	systemChat "No object";
+};
+
+if !(isNil {player getVariable ["zade_boc_chestpack",nil]}) exitWith {
+	if!(carryChat)exitWith{}; 
+	systemChat "You cannot pickup objects whilst a backpack is on your chest...";
 };
 
 if (([_type,["LandVehicle","Air","Ship"],[]]call Carry_fnc_IsKindOf)AND!(_object isKindOf"StaticWeapon"))exitWith{
